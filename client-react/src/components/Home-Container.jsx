@@ -58,7 +58,7 @@ const HomeContainer = () => {
                 <p className="text-base lg:text-xl font-semibold text-textColor mt-2 lg:mt-4">
                   {item.name}
                 </p>
-                <p className="text-[12px] lg:text-sm text-lighttextGray font-semibold my-1 lg:my-3">
+                <p className="text-[12px] lg:text-sm text-lightTextGray font-semibold my-1 lg:my-3">
                   {item.description}
                 </p>
                 <p className="text-sm font-semibold text-headingColor">
