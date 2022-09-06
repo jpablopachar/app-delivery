@@ -9,15 +9,17 @@ import {
 import { firestore } from '../config/firebase'
 
 export const saveItem = async (data) => {
-  await setDoc(doc(firestore, 'foodItems', `${Date.now()}`), data, {
+  await setDoc(doc(firestore, 'food-items', `${Date.now()}`), data, {
     merge: true
   })
 }
 
 export const getAllFoodItems = async () => {
   const items = await getDocs(
-    query(collection(firestore, 'foodItems'), orderBy('id', 'desc'))
+    query(collection(firestore, 'food-items'), orderBy('id', 'desc'))
   )
+
+  console.log(items)
 
   return items.docs.map((doc) => doc.data())
 }

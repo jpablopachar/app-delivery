@@ -14,8 +14,10 @@ import {
   MdFoodBank
 } from 'react-icons/md'
 import { storage } from '../config/firebase'
+import { useStateValue } from '../hooks/useStateValue'
+import { SET_FOOD_ITEMS } from '../store/types'
 import { categories } from '../utils/data'
-import { saveItem } from '../utils/firebase-functions'
+import { getAllFoodItems, saveItem } from '../utils/firebase-functions'
 import Loader from './Loader'
 
 const CreateContainer = () => {
@@ -28,6 +30,8 @@ const CreateContainer = () => {
   const [alertStatus, setAlertStatus] = useState('danger')
   const [msg, setMsg] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
+
+  const [{ foodItems }, dispatch] = useStateValue()
 
   const uploadImage = (event) => {
     setIsLoading(true)
@@ -135,6 +139,8 @@ const CreateContainer = () => {
         setIsLoading(false)
       }, 4000)
     }
+
+    fetchData()
   }
 
   const clearData = () => {
@@ -143,6 +149,17 @@ const CreateContainer = () => {
     setPrice('')
     setCategory('Select Category')
     setImageAsset(null)
+  }
+
+  const fetchData = async () => {
+    const foodItems = await getAllFoodItems()
+
+    if (foodItems) {
+      dispatch({
+        type: SET_FOOD_ITEMS,
+        foodItems
+      })
+    }
   }
 
   return (
